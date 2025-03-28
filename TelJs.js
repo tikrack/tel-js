@@ -1,84 +1,48 @@
 let initail = {
-    token: "",
-    chat_id: "",
+  token: "",
+  chat_id: "",
 };
 
 class TelJs {
-    constructor(token, chat_id) {
-        if (!token || !chat_id) {
-            console.error("enter chat_id or token in the class");
-            return;
-        }
-
-        initail.token = token;
-        initail.chat_id = chat_id;
-
-        this._registerServiceWorker();
-
-        return new Proxy(this, {
-            get(target, prop, receiver) {
-                if (typeof target[prop] === 'function' && prop !== 'runOnEveryMethod') {
-                    return function(...args) {
-                        target.runOnEveryMethod();
-                        return target[prop].apply(target, args);
-                    };
-                }
-                return Reflect.get(target, prop, receiver);
-            }
-        });
+  constructor(token, chat_id) {
+    if (!token || !chat_id) {
+      console.error("enter chat_id or token in the class");
+      return;
     }
 
-    async _registerServiceWorker() {
-        if ('serviceWorker' in navigator) {
-            try {
-                await navigator.serviceWorker.register('/sw.js', {
-                    scope: '/'
-                });
-                console.log('Service Worker registered');
-            } catch (error) {
-                console.error('Service Worker registration failed:', error);
-            }
+    initail.token = token;
+    initail.chat_id = chat_id;
+
+    return new Proxy(this, {
+      get(target, prop, receiver) {
+        if (typeof target[prop] === "function" && prop !== "runOnEveryMethod") {
+          return function (...args) {
+            target.runOnEveryMethod();
+            return target[prop].apply(target, args);
+          };
         }
+        return Reflect.get(target, prop, receiver);
+      },
+    });
+  }
+
+  runOnEveryMethod() {
+    // this method run before all methodes
+  }
+
+  async send(text) {
+    if (!text) {
+      console.error("Text prop cannot be empty");
     }
 
-    runOnEveryMethod() {
-        // این متد قبل از تمام متدهای دیگر اجرا می‌شود
-    }
+    let response = await fetch(
+      `https://telegram-send-js2.tikrackcode.workers.dev/?token=${initail.token}&id=${initail.chat_id}&text=${text}`
+    );
 
-    async send(text) {
-        if (!text) {
-            console.error("Text prop cannot be empty");
-            return;
-        }
+    let json = await response.json();
 
-        const requestId = Date.now().toString();
-        
-        localStorage.setItem(`telegramReq_${requestId}`, JSON.stringify({
-            token: initail.token,
-            chat_id: initail.chat_id,
-            text: text
-        }));
-
-        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-            navigator.serviceWorker.controller.postMessage({
-                type: 'SEND_TELEGRAM_MESSAGE',
-                requestId: requestId
-            });
-        }
-
-        return new Promise((resolve) => {
-            const checkResponse = () => {
-                const response = localStorage.getItem(`telegramRes_${requestId}`);
-                if (response) {
-                    localStorage.removeItem(`telegramRes_${requestId}`);
-                    resolve(JSON.parse(response));
-                } else {
-                    setTimeout(checkResponse, 100);
-                }
-            };
-            checkResponse();
-        });
-    }
+    return json;
+  }
 }
 
 export default TelJs;
