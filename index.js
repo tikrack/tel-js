@@ -1,5 +1,5 @@
 import TelJs from "/TelJs.js";
 
-let telegram = new TelJs("23094092-304")
+let telegram = new TelJs("23094092-304", "ko")
 
-telegram.test()
+telegram.send("its a test")
