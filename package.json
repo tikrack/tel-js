@@ -1,0 +1,30 @@
+{
+  "name": "tel-js",
+  "version": "1.0.0",
+  "description": "tel-js is a cool and useful repository for sending messages on Telegram using bots, which is useful for countries that have filtering.",
+  "homepage": "https://github.com/tikrack/tel-js#readme",
+  "bugs": {
+    "url": "https://github.com/tikrack/tel-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tikrack/tel-js.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "messaging",
+    "proxy",
+    "filtering"
+  ],
+  "contributors": [
+    {
+      "name": "tikrack",
+      "email": "tikrackcode@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "author": "tikrack",
+  "type": "module",
+  "main": "index.js"
+}
