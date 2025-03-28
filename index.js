@@ -1,7 +1,12 @@
 import TelJs from "/TelJs.js";
 
-let telegram = new TelJs("7625182592:AAGX0jkcydTx7NG2e2X3zkUvnOMmK5DeS9s", "-1002192270366")
+let telegram = new TelJs(
+  "7625182592:AAGX0jkcydTx7NG2e2X3zkUvnOMmK5DeS9s",
+  "-1002192270366"
+);
 
-telegram.send(`<b> hello </b>`).then((result) => {
+document.querySelector("button").addEventListener("click", () => {
+  telegram.send(``).then((result) => {
     console.log(result);
-})  
+  });
+}); 
