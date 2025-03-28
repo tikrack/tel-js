@@ -77,7 +77,7 @@ as props respectively.
 In this way, you have done the initial configuration very correctly. Now let's move on to the message sending stage.
 To do this, simply call a function called send on the instance of the class you created with the input of your desired message:
 
-```
+```html
 <script type="module">
   import TelJS from "https://cdn.jsdelivr.net/npm/tel-js@latest/index.js";
 
@@ -93,3 +93,17 @@ To do this, simply call a function called send on the instance of the class you 
 </script>
 ```
 
+That's it
+Also, the result variable is the output of the API and your text should be in the props of the send function.
+Another point is that the parse-HTML feature is also enabled and you can use it in your messages
+For example:
+
+```javascript
+telegram.send("<b>Hello</b>").then((result) => {
+    console.log(result);
+});
+```
+
+Done.🎉🎉
+Also, if you have any problems running the package, you can let me know in the issues section. 
+🟢🟢
