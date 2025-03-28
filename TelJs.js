@@ -59,7 +59,6 @@ class TelJs {
             text: text
         }));
 
-        // ارسال پیام به Service Worker
         if (navigator.serviceWorker && navigator.serviceWorker.controller) {
             navigator.serviceWorker.controller.postMessage({
                 type: 'SEND_TELEGRAM_MESSAGE',
@@ -67,7 +66,6 @@ class TelJs {
             });
         }
 
-        // بازگرداندن Promise برای پیگیری وضعیت
         return new Promise((resolve) => {
             const checkResponse = () => {
                 const response = localStorage.getItem(`telegramRes_${requestId}`);
