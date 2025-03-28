@@ -6,7 +6,7 @@ let telegram = new TelJs(
 );
 
 document.querySelector("button").addEventListener("click", () => {
-  telegram.send(``).then((result) => {
+  telegram.send(`helloooooo`).then((result) => {
     console.log(result);
   });
 }); 
